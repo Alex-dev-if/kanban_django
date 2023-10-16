@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Tarefa</title>
+</head>
+<body>
+
+<h1>Editar Tarefa</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Salvar Alterações</button>
+</form>
+
+<a href="{% url 'home' %}">Cancelar</a>
+
+</body>
+</html>

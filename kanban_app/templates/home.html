@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+    <title>Kanban Board</title>
+
+</head>
+<body>
+  <div id="botoes">
+  <a href="{% url 'create_task' %}">Criar Tarefa</a>
+  <a href="{% url 'dashboard' %}">Dashboard</a>
+  </div>
+<div class="container">
+<div class="column" id="To Do">
+    <h2>To Do</h2>
+    {% for task in tasks_todo %}
+      <div class="task" data-task-id="{{ task.id }}">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <a href="{% url 'task_detail' task.id %}">Ver Tarefa</a>
+
+      </div>
+    {% endfor %}
+</div>
+
+<div class="column" id="Doing">
+    <h2>Doing</h2>
+    {% for task in tasks_doing %}
+      <div class="task" data-task-id="{{ task.id }}">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <a href="{% url 'task_detail' task.id %}">Ver Tarefa</a>
+
+      </div>
+    {% endfor %}
+</div>
+<div class="column" id="Done">
+    <h2>Done</h2>
+    {% for task in tasks_done %}
+      <div class="task" data-task-id="{{ task.id }}">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <a href="{% url 'task_detail' task.id %}">Ver Tarefa</a>
+
+      </div>
+    {% endfor %}
+</div>
+</div>
+
+</body>
+
+</html>
+<script>
+  $(function() {
+    var taskId;
+
+  $(".column").sortable({
+    connectWith: ".column", //para conectar o sortable nas três colunas
+    items: ".task",
+    start: function(event, ui) {
+      taskId = ui.item.data("task-id");
+    },
+    update: function(event, ui) {
+      var divId = ui.item.parent().attr("id"); //pega o id da nova coluna kanban
+      console.log(divId, taskId)
+      $.ajax({ //requisição pra mudar o status sempre que a task for solta
+          url: "/update_task_status/"+taskId+"/"+divId,
+          method: "GET"
+      });
+      }
+      });
+    });
+</script>

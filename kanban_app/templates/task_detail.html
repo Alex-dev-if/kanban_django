@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes da Tarefa</title>
+</head>
+<body>
+
+<h1>Detalhes da Tarefa</h1>
+
+<h2>Tarefa: {{ task.title }}</h2>
+<p>Descrição: {{ task.description }}</p>
+<p>Status: {{ task.get_status_display }}</p>
+<p>Data de Criação: {{ task.created_at }}</p>
+
+<a href="{% url 'task_delete' task.id %}">Deletar Tarefa</a>
+<a href="{% url 'task_edit' task.id %}">Editar Tarefa</a>
+<a href="{% url 'home' %}">Voltar para Tarefas</a>
+
+
+</body>
+</html>
