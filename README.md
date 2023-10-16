@@ -34,3 +34,4 @@ Um projeto em Django para construir uma estrutura ágil Kanban capaz de criar, a
  
   # Diagrama UML
   
+![Diagrama UML](https://github.com/Alex-dev-if/kanban_django/assets/91799263/c3a0880a-7a8b-45e3-91ab-96c4b92150d3)
